@@ -1,0 +1,15 @@
+.leftNavigation{
+    position: absolute;
+    left: 0px;
+    top: 40px;
+    transform: translateY(-50%);
+    z-index: 3;
+    cursor: pointer;
+}
+
+.arrow1{
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-size: 30px;
+}
