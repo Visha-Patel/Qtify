@@ -1,45 +1,45 @@
-import React,{useEffect}  from "react";
-import {Swiper,SwiperSlide} from "swiper/react";
-import { Navigation} from "swiper/modules";
-import {useSwiper} from "swiper/react";
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import styles from "./Carousel.module.css";
 import "swiper/css";
 import CarouselLeftNavigation from "./CarouselLeftNavigation/CarouselLeftNavigation";
 import CarouselRightNavigation from "./CarouselRightNavigation/CarouselRightNavigation";
 
-const Controls = ({data}) => {
-    const swiper = useSwiper();
+function Carousel({ data: initialData, renderComponent }) {
+  const [data, setData] = useState(initialData);
+  const [clickCount, setClickCount] = useState(0);
 
-    useEffect(() => {
-        swiper.slideTo(0);
-    }, [data,swiper]);
+  const handleRightClick = () => {
+    setClickCount((prevCount) => prevCount + 1);
+    if (clickCount >= 3) {
+      setData((prevData) => prevData.slice(2));
+      setClickCount(0);
+    }
+  };
 
-    return <></>;
-};
-
-
-function Carousel({data,renderComponent}) {
-    return (
-        <div className={styles.wrapper}>
-            <Swiper 
-                style={{padding: "0 20px"}}
-                initialSlide={0}
-                modules={[Navigation]}
-                slidesPerView={"auto"}
-                spaceBetween={40}
-                allowTouchMove
-            >
-                <Controls data={data} />
-                <div>
-                    <CarouselLeftNavigation />
-                    <CarouselRightNavigation />
-                </div>
-                {data.map((ele) => (
-                    <SwiperSlide > {renderComponent(ele)}</SwiperSlide>
-                ))}
-            </Swiper>
+  return (
+    <div className={styles.wrapper}>
+      <Swiper
+        style={{ padding: "0 20px" }}
+        initialSlide={0}
+        modules={[Navigation]}
+        slidesPerView={"auto"}
+        spaceBetween={40}
+        allowTouchMove
+      >
+        <div>
+          <CarouselLeftNavigation />
+          <div onClick={handleRightClick}>
+            <CarouselRightNavigation />
+          </div>
         </div>
-    );
+        {data.map((ele) => (
+          <SwiperSlide>{renderComponent(ele)}</SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
 }
 
 export default Carousel;
