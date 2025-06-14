@@ -12,9 +12,9 @@ function Carousel({ data: initialData, renderComponent }) {
 
   const handleRightClick = () => {
     setClickCount((prevCount) => prevCount + 1);
-    if (clickCount >= 3) {
+    if (clickCount === 4) {
       setData((prevData) => prevData.slice(2));
-      setClickCount(0);
+    //   setClickCount(0);
     }
   };
 
