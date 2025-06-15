@@ -35,7 +35,7 @@ function Carousel({ data: initialData, renderComponent }) {
           </div>
         </div>
         {data.map((ele) => (
-          <SwiperSlide>{renderComponent(ele)}</SwiperSlide>
+          <SwiperSlide key={ele.id}>{renderComponent(ele)}</SwiperSlide>
         ))}
       </Swiper>
     </div>
