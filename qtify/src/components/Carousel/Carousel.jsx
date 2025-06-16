@@ -6,35 +6,24 @@ import "swiper/css";
 import CarouselLeftNavigation from "./CarouselLeftNavigation/CarouselLeftNavigation";
 import CarouselRightNavigation from "./CarouselRightNavigation/CarouselRightNavigation";
 
-function CarouselControls({ handleRightClick }) {
-  return (
-    <div>
-      <CarouselLeftNavigation />
-      <div onClick={handleRightClick}>
-        <CarouselRightNavigation />
-      </div>
-    </div>
-  );
-}
-
 function Carousel({ data: initialData, renderComponent }) {
   const [data, setData] = useState(initialData);
   const [clickCount, setClickCount] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   const handleRightClick = () => {
-  setClickCount((prevCount) => {
-    const newCount = prevCount + 1;
-    if (newCount === 4) {
-      setData((prevData) => prevData.slice(0));
-      setClickCount(0);
-      if (swiperInstance) {
-        swiperInstance.slideTo(0);
+    setClickCount((prevCount) => {
+      const newCount = prevCount + 1;
+      if (newCount === 4) {
+        setData((prevData) => prevData.slice(2));
+        setClickCount(0);
+        if (swiperInstance) {
+          swiperInstance.slideTo(0);
+        }
       }
-    }
-    return newCount;
-  });
-};
+      return newCount;
+    });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -47,7 +36,12 @@ function Carousel({ data: initialData, renderComponent }) {
         allowTouchMove
         onSwiper={(swiper) => setSwiperInstance(swiper)}
       >
-        <CarouselControls handleRightClick={handleRightClick} />
+        <div>
+          <CarouselLeftNavigation />
+          <div onClick={handleRightClick}>
+            <CarouselRightNavigation />
+          </div>
+        </div>
         {data.map((ele) => (
           <SwiperSlide key={ele.id}>{renderComponent(ele)}</SwiperSlide>
         ))}
