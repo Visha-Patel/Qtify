@@ -6,7 +6,7 @@ import "swiper/css";
 import CarouselLeftNavigation from "./CarouselLeftNavigation/CarouselLeftNavigation";
 import CarouselRightNavigation from "./CarouselRightNavigation/CarouselRightNavigation";
 
-function CarouselControls({ handleRightClick, swiper }) {
+function CarouselControls({ handleRightClick }) {
   return (
     <div>
       <CarouselLeftNavigation />
@@ -29,7 +29,7 @@ function Carousel({ data: initialData, renderComponent }) {
         setData((prevData) => prevData.slice(2));
         setClickCount(0);
         if (swiperInstance) {
-          swiperInstance.slideTo(2);
+          swiperInstance.slideTo(0);
         }
       }
       return newCount;
