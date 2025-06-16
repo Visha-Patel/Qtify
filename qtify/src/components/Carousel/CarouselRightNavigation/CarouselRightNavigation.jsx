@@ -2,29 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useSwiper } from "swiper/react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styles from "./CarouselRightNavigation.module.css";
- 
-function CarouselRightNavigation() {
+
+function CarouselRightNavigation({ handleRightClick }) {
   const swiper = useSwiper();
   const [isEnd, setIsEnd] = useState(false);
- 
+
   useEffect(() => {
     const handleChange = () => {
       setIsEnd(swiper.isEnd);
     };
- 
     setIsEnd(swiper.isEnd);
     swiper.on("slideChange", handleChange);
- 
     return () => {
       swiper.off("slideChange", handleChange);
     };
   }, [swiper]);
- 
+
   return (
     <div className={styles.rightNavigation}>
       <KeyboardArrowRightIcon
         className={styles.arrow}
-        onClick={() => !isEnd && swiper.slideNext()}
+        onClick={handleRightClick}
         aria-label="Next Slide"
         data-cy="carousel-next-button"
         style={{
@@ -35,5 +33,5 @@ function CarouselRightNavigation() {
     </div>
   );
 }
- 
+
 export default CarouselRightNavigation;
