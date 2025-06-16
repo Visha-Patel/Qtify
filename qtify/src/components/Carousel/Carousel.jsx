@@ -23,18 +23,18 @@ function Carousel({ data: initialData, renderComponent }) {
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   const handleRightClick = () => {
-    setClickCount((prevCount) => {
-      const newCount = prevCount + 1;
-      if (newCount === 4) {
-        setData((prevData) => prevData.slice(2));
-        setClickCount(0);
-        if (swiperInstance) {
-          swiperInstance.slideTo(0);
-        }
+  setClickCount((prevCount) => {
+    const newCount = prevCount + 1;
+    if (newCount === 4) {
+      setData((prevData) => prevData.slice(0));
+      setClickCount(0);
+      if (swiperInstance) {
+        swiperInstance.slideTo(0);
       }
-      return newCount;
-    });
-  };
+    }
+    return newCount;
+  });
+};
 
   return (
     <div className={styles.wrapper}>
